@@ -58,3 +58,57 @@ import {client} from './db_client';
       return [];
     }
   };
+  /**
+   * function to create a primary contact corresponding to the provided email and phoneNumber
+   * @param email 
+   * @param phoneNumber 
+   * @returns the created primaryContact
+   */
+  const createPrimaryContact = async (email: string, phoneNumber: string): Promise<any> => {
+    try {
+      const query = {
+        text: `INSERT INTO Contact (phonenumber, email, linkprecedence)
+        VALUES ($1, $2, $3)`,
+        values: [phoneNumber, email, 'primary'],
+      };
+        console.log("at createPrimaryContact");
+        const result = await client.query(query);
+        // Fetch the newly created primary contact
+        return findPrimaryContact(email,phoneNumber);
+    } catch (error) {
+      console.error('Error executing query:', error);
+    }
+  };
+  /**
+   * Function to create secondary contacts for corresponding 
+   * @param email 
+   * @param phoneNumber 
+   * @param linkedId 
+   * @returns 
+   */
+  const createSecondaryContact = async (
+    email: string,
+    phoneNumber: string,
+    linkedId: number
+  ): Promise<any> => {
+    try {
+      const query = {
+        text: `INSERT INTO Contact (phonenumber, email, linkprecedence, linkedid)
+        VALUES ($1, $2, $3, $4)`,
+        values: [phoneNumber, email, 'secondary', linkedId],
+      };
+  
+      await client.query(query);
+  
+      const getId = {
+        text: 'SELECT id FROM contact WHERE (email = $1 AND phoneNumber = $2 AND linkedid = $3 AND linkPrecedence = $4)',
+        values: [email, phoneNumber, linkedId, 'secondary'],
+      };
+  
+      const result = await client.query(getId);
+      console.log('at createSecondaryContact ');
+      return result.rows[0];
+    } catch (error) {
+      console.error('Error executing query:', error);
+    }
+  };
