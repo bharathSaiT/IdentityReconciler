@@ -2,7 +2,7 @@
 identify and keep track of a customer's identity across multiple transactions.
 
 ## Details
-We are storing our data in postgres DB , in a table - 'contact'.
+We are storing our data in __postgres DB__ , in a table - 'contact'.
 
 Structure of the data:
 ```
@@ -18,6 +18,8 @@ Structure of the data:
 }
 ```
 
+#### Backend 
+NodeJs with TypeScript , Express are used to build `identify` endpoint .
 
 ## EndPoint
 ### POST request.
