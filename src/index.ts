@@ -11,7 +11,12 @@ app.post('/identify', async (req, res) => {
   try {
     await connectToDataBase();  // Connect to DataBase
 
-    const { email, phoneNumber } = req.body;
+     const { email, phoneNumber, ...extraAttributes } = req.body;
+
+    // Check if extraAttributes is not empty
+    if (Object.keys(extraAttributes).length !== 0) {
+      return res.status(400).json({ error: 'Invalid request body. Only email and phoneNumber are allowed' });
+    }
     const request :requestType = req.body;
 
     // Ensuring either one of the input paramaters is available

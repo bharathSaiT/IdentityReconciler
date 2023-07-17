@@ -4,11 +4,10 @@ const { Client } = postgres;
 
 //update user , host, database, password ,port ; details as per the DB that we are connecting to
 const client = new Client({
-    user: 'bitespeed', 
-    host: 'localhost',
-    database: 'Contact',
-    password: 'fast',
-    port: 5432,
+    connectionString: 'postgres://bitespeed:ToMWU7SmIrQ7eqhG9QxCWcOD30WUkDLt@dpg-ciqlsblgkuvrtobnqt70-a.frankfurt-postgres.render.com/contact_p7vz',
+    ssl: {
+        rejectUnauthorized: false,
+      }
 });
 
 let isConnected = false;
