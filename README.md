@@ -21,8 +21,9 @@ Structure of the data:
 #### Backend 
 NodeJs with TypeScript , Express are used to build `identify` endpoint .
 
-## EndPoint
-### POST request.
+## Service
+The Service is deployed online  , on <a>https://render.com/docs</a> .
+### POST request - EndPoint : /identify
 <a>url: https://bitespeedv1.onrender.com/identify</a>
 #### example body :
 {
